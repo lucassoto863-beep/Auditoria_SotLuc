@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ContactBubble from './components/ContactBubble.jsx'
 import Resumen       from './components/Resumen.jsx'
 import InyeccionSQL  from './components/InyeccionSQL.jsx'
 import XSS           from './components/XSS.jsx'
@@ -89,6 +90,8 @@ export default function App() {
       <main className="main-content">
         {COMPONENTS[active]}
       </main>
+
+      <ContactBubble />
     </div>
   )
 }
