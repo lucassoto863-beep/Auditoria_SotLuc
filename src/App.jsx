@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ContactBubble from './components/ContactBubble.jsx'
 import Resumen       from './components/Resumen.jsx'
 import InyeccionSQL  from './components/InyeccionSQL.jsx'
@@ -51,6 +51,11 @@ const COMPONENTS = {
 
 export default function App() {
   const [active, setActive] = useState('resumen')
+  const [theme, setTheme] = useState('dark')
+
+  useEffect(() => {
+    document.body.classList.toggle('light', theme === 'light')
+  }, [theme])
 
   return (
     <div className="layout">
@@ -79,6 +84,13 @@ export default function App() {
             </div>
           ))}
         </nav>
+
+        <button
+          className="theme-toggle"
+          onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+        >
+          {theme === 'dark' ? '☀️  Modo claro' : '🌙  Modo oscuro'}
+        </button>
 
         <div className="sidebar-footer">
           Lucas Soto Lagos · INACAP Valparaíso<br />

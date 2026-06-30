@@ -383,3 +383,86 @@ tr:hover td { background: rgba(74,144,217,0.04); }
   }
   .main-content { padding: 28px 22px; }
 }
+
+body.light {
+  --bg:           #f5f8fc;
+  --bg-elevated:  #ffffff;
+  --bg-card:      #ffffff;
+  --bg-card-hov:  #f0f6fc;
+  --border:       #d8e4f0;
+  --border-soft:  #e6eef6;
+ 
+  --agua-300: #2f7fd1;
+  --agua-400: #1a5fa8;
+  --agua-500: #0e3460;
+  --glow:     rgba(47, 127, 209, 0.08);
+ 
+  --texto-primario:   #0a1628;
+  --texto-secundario: #4a5568;
+  --texto-muted:      #8194ad;
+ 
+  --sombra: 0 4px 20px rgba(10, 22, 40, 0.08);
+  --sombra-card: 0 1px 3px rgba(10,22,40,0.06), 0 0 0 1px rgba(10,22,40,0.02) inset;
+}
+ 
+body.light {
+  background-image:
+    radial-gradient(circle at 15% 0%, var(--glow) 0%, transparent 40%),
+    radial-gradient(circle at 85% 100%, rgba(47,127,209,0.05) 0%, transparent 45%);
+}
+ 
+body.light .sidebar {
+  background: linear-gradient(180deg, #0a1628 0%, #0d2240 100%);
+  border-right: 1px solid #0e3460;
+}
+ 
+body.light .payload {
+  background: #0a1628;
+  color: #7dd3fc;
+}
+ 
+body.light th {
+  background: #0a1628;
+  color: #e2edf7;
+}
+ 
+body.light ::-webkit-scrollbar-track { background: var(--bg); }
+body.light ::-webkit-scrollbar-thumb { background: #c8dcf0; }
+body.light ::-webkit-scrollbar-thumb:hover { background: var(--agua-400); }
+ 
+/* Transición suave al cambiar de tema */
+body, .sidebar, .card, .payload, th, td {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+ 
+/* ── Theme toggle button ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  margin: 4px 14px 0;
+  width: calc(100% - 28px);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--texto-secundario);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+ 
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.07);
+  color: var(--texto-primario);
+}
+ 
+body.light .theme-toggle {
+  background: rgba(10,22,40,0.04);
+}
+ 
+body.light .theme-toggle:hover {
+  background: rgba(10,22,40,0.08);
+}
