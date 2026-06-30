@@ -7,99 +7,159 @@
 ### Entrada 01 — Estructura inicial del proyecto
  
 **Herramienta:** Claude (Anthropic)  
-**Sección:** Estructura base del proyecto (Vite + React + componentes)
+**Sección:** Estructura base del proyecto (Vite + React)
  
 **Prompt utilizado:**
  
 ```
-Crea la estructura del proyecto auditoria_sotluc para AguasClaras Sanitaria S.A.,
-empresa E15 asignada en la Evaluación Sumativa N°3. Necesito un proyecto React + Vite
-con sidebar de navegación para las 9 secciones del informe (resumen, sqli, xss,
-comandos, activos, matriz, controles, recuperación, prompts), siguiendo la misma
-modalidad técnica que usé en la Evaluación 2.
+Necesito armar el proyecto auditoria_sotluc para AguasClaras (mi empresa asignada,
+la E15). Tiene que ser React + Vite con un sidebar para ir cambiando entre las 9
+secciones del informe, usando la misma forma que en la Evaluación 2.
 ```
  
 **¿Qué acepté?**  
-La estructura completa de carpetas (`docs_sotluc/`, `src/components/`), el sistema de
-navegación con sidebar por secciones, y el CSS base con paleta de colores azul agua
-acorde al rubro sanitario de la empresa.
+La estructura de carpetas y el sidebar de navegación, porque me sirvió para no tener
+que armar todo el routing manual entre secciones.
  
 **¿Qué corregí?**  
-Inicialmente probé una segunda versión con estética tipo "dashboard SOC" (fondo negro,
-acentos cian, panel lateral tipo drawer), pero decidí revertirla porque no me gustó el
-resultado visual y volví a la versión original con sidebar, que se ajustaba mejor a lo
-que tenía en mente.
+Probé primero una versión con un estilo más oscuro tipo "dashboard", pero no me gustó
+cómo quedó y volví a la versión con sidebar normal, que se parece más a lo que tenía
+pensado para el sitio.
  
 ---
  
-### Entrada 02 — Contenido técnico de los 3 ataques
+### Entrada 02 — Contenido de los ataques (Informe A)
  
 **Herramienta:** Claude (Anthropic)  
-**Sección:** 02_sqli_sotluc.md, 03_xss_sotluc.md, 04_comandos_sotluc.md
+**Sección:** SQL Injection, XSS, Command Injection
  
 **Prompt utilizado:**
  
 ```
-Para AguasClaras Sanitaria (portal de clientes con datos de RUT, consumo de agua y
-pagos), redacta el análisis técnico de Inyección SQL con el payload ' OR '1'='1,
-explicando por qué funciona la consulta vulnerable, el puntaje CVSS v3.1 justificado
-métrica por métrica, una política de prevención con consultas parametrizadas, y
-controles de mitigación referenciando OWASP.
+Ayúdame a explicar por qué funciona la inyección SQL con el payload ' OR '1'='1 en
+DVWA, pensando en que es el portal de AguasClaras. Necesito también el CVSS y
+controles de prevención.
 ```
  
 **¿Qué acepté?**  
-La explicación técnica de cada vulnerabilidad (por qué funciona, ejemplo de consulta
-vulnerable vs. consulta con el payload inyectado) y la tabla de métricas CVSS.
+La explicación de por qué funciona cada vulnerabilidad (la parte de la consulta SQL
+concatenada me sirvió para entenderlo mejor) y la base de la tabla CVSS.
  
 **¿Qué corregí?**  
-Verifiqué y ajusté manualmente los puntajes CVSS en la calculadora oficial de FIRST
-(https://www.first.org/cvss/calculator/3.1) contrastando con las capturas reales que
-obtuve en DVWA, en lugar de aceptar el puntaje generado por la IA sin revisión. También
-agregué la referencia explícita al marco OWASP Top 10 (A03:2021 — Injection) en los
-controles de mitigación, ya que la primera versión no la mencionaba explícitamente.
+Los puntajes CVSS los volví a calcular yo mismo en la calculadora oficial
+(first.org/cvss/calculator/3.1) comparando con lo que realmente vi en mis capturas,
+no me quedé con el número que tiraba la IA de primeras. También tuve que pedir que
+agregara la referencia a OWASP en los controles porque la primera vez no la puso.
  
 ---
  
-### Entrada 03 — Incrustación de evidencia real
+### Entrada 03 — Meter las capturas en el sitio
  
 **Herramienta:** Claude (Anthropic)  
-**Sección:** Componentes InyeccionSQL.jsx, XSS.jsx, Comandos.jsx
+**Sección:** Componentes de los 3 ataques
  
 **Prompt utilizado:**
  
 ```
-Ya ejecuté los 3 ataques en DVWA (URL: dvwa-dnwe.onrender.com) y tengo las capturas
-guardadas como sqli_sotluc.png, xss_sotluc.png y comandos_sotluc.png en
-docs_sotluc/img_sotluc/ y public/docs_sotluc/img_sotluc/. Reemplaza los placeholders
-de evidencia en los 3 componentes React por las imágenes reales, con un pie
-descriptivo (figura) que explique qué muestra cada captura.
+Ya tengo las 3 capturas de los ataques en DVWA, ayúdame a ponerlas en los
+componentes de React con un pie de foto explicando qué muestra cada una.
 ```
  
 **¿Qué acepté?**  
-El código de los `<img>` con las rutas correctas (`/docs_sotluc/img_sotluc/...`) y los
-pies descriptivos redactados para cada figura.
+El código para poner las imágenes y los textos de pie de foto.
  
 **¿Qué corregí?**  
-Tuve que aclarar varias veces la ubicación correcta de las carpetas de imágenes
-(`docs_sotluc/img_sotluc` en la raíz vs. `public/docs_sotluc/img_sotluc`), ya que en un
-primer momento la IA me dio indicaciones contradictorias sobre dónde duplicar los
-archivos. Verifiqué con capturas del explorador de archivos hasta confirmar la
-estructura correcta antes de continuar.
+Tuve bastantes idas y vueltas con dónde tenían que ir guardadas las imágenes (si en
+docs_sotluc o en public/docs_sotluc), me costó entender que tenían que estar
+duplicadas en los dos lados. Al final lo resolví comparando con capturas de mi
+explorador de archivos.
+ 
+---
+ 
+### Entrada 04 — Matriz de riesgo y mapa de calor
+ 
+**Herramienta:** Claude (Anthropic)  
+**Sección:** Matriz de riesgo (Informe B)
+ 
+**Prompt utilizado:**
+ 
+```
+Para el informe B necesito la matriz de riesgo con mapa de calor (probabilidad x
+impacto) de las 3 vulnerabilidades, que tenga coherencia con los CVSS que ya saqué
+en el informe A.
+```
+ 
+**¿Qué acepté?**  
+La lógica del mapa de calor (la grilla de colores) y la idea de cómo ubicar cada
+vulnerabilidad según probabilidad e impacto.
+ 
+**¿Qué corregí?**  
+Cambié la probabilidad del XSS porque la IA la había puesto igual de alta que la SQLi,
+y no tenía sentido porque el XSS necesita que la víctima haga clic en algo, mientras
+que la SQLi se puede explotar directo sin que nadie haga nada. Lo bajé de 5 a 4 para
+que calzara con el análisis que ya había hecho antes.
+ 
+---
+ 
+### Entrada 05 — Controles con marco de referencia
+ 
+**Herramienta:** Claude (Anthropic)  
+**Sección:** Prevención y mitigación (Informe B)
+ 
+**Prompt utilizado:**
+ 
+```
+Junta las políticas de prevención y los controles de mitigación de las 3
+vulnerabilidades en una sola sección, y que cada control diga a qué marco de
+seguridad pertenece (OWASP o CIS).
+```
+ 
+**¿Qué acepté?**  
+La tabla con todos los controles juntos y organizados por prioridad.
+ 
+**¿Qué corregí?**  
+Revisé que los números de los controles CIS que puso fueran reales (busqué que
+existiera el Control 5 y el Control 13 del CIS Controls v8) y no nombres inventados
+nomás para que sonara bien.
+ 
+---
+ 
+### Entrada 06 — Plan de recuperación
+ 
+**Herramienta:** Claude (Anthropic)  
+**Sección:** Recuperación ante desastres (Informe B)
+ 
+**Prompt utilizado:**
+ 
+```
+Arma el plan de recuperación para AguasClaras pensando en que es un servicio básico,
+con respaldo, restauración, notificación de incidentes y mejoras tecnológicas como
+WAF.
+```
+ 
+**¿Qué acepté?**  
+La estructura general del plan (backup, restauración, notificación, lecciones
+aprendidas).
+ 
+**¿Qué corregí?**  
+Cambié la parte de notificación para que mencionara la ley chilena de protección de
+datos (19.628) en vez de algo genérico tipo "normativa vigente", y ajusté los tiempos
+de RTO/RPO para que fueran más realistas para una empresa de este tamaño y no copiados
+de un caso enterprise gigante.
  
 ---
  
 ## Reflexión final
  
-El uso de IA en esta evaluación se concentró en la generación de la estructura de
-código (componentes React, CSS, navegación) y en la redacción inicial del contenido
-técnico, que luego validé y ajusté con la evidencia real obtenida en DVWA. El mayor
-aporte fue la rapidez para construir el armazón del sitio sin partir desde cero, lo que
-me permitió enfocar el tiempo en entender y documentar correctamente cada
-vulnerabilidad.
+Usé la IA principalmente para armar la base del código (los componentes, el CSS, la
+navegación) y para tener un primer borrador del contenido técnico de cada sección, que
+después fui revisando contra lo que realmente vi en DVWA y contra lo que tenía sentido
+para el rubro de AguasClaras. Me sirvió harto para no perder tiempo armando todo desde
+cero, sobre todo en la parte de código.
  
-El principal punto débil fue la coordinación de rutas de archivos entre carpetas
-(`docs_sotluc` y `public/docs_sotluc`), donde la IA dio indicaciones imprecisas en un
-primer momento y tuve que pedir aclaraciones repetidas hasta resolverlo correctamente.
-También fue clave no aceptar los puntajes CVSS de forma automática: los contrasté
-manualmente con la calculadora oficial de FIRST usando como referencia mis propias
-capturas, ya que la responsabilidad técnica del análisis es mía, no de la herramienta.
+Lo que más me costó fue el tema de las rutas de las imágenes, ahí tuve que insistir
+varias veces hasta entender bien dónde iban. Y en general traté de no aceptar nada a
+ciegas: los CVSS los comprobé yo en la calculadora oficial, y los controles los
+revisé para que las referencias a OWASP y CIS fueran reales y no solo nombres puestos
+para que se viera más completo. Al final la responsabilidad de que el análisis esté
+bien hecho es mía, la IA solo me ayudó a no partir de cero.
