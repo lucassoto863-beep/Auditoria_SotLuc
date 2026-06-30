@@ -15,11 +15,17 @@ export default function XSS() {
         <p style={{ marginTop: 8 }}><strong>Payload utilizado:</strong></p>
         <div className="payload">{'<script>alert(\'XSS\')</script>'}</div>
 
-        <div className="evidencia-placeholder">
-          <span className="placeholder-icon">📸</span>
-          <span>Reemplazar con captura del ataque</span>
-          <span>docs_sotluc/img_sotluc/xss_sotluc.png</span>
-        </div>
+        <img
+          src="/docs_sotluc/img_sotluc/xss_sotluc.png"
+          alt="Evidencia del ataque XSS Reflejado en DVWA"
+          className="evidencia-img"
+        />
+        <p style={{ fontSize: 12, color: 'var(--texto-muted)', marginTop: -8, marginBottom: 16 }}>
+          <em>Figura 2. Ejecución del payload <code>{"<script>alert('XSS')</script>"}</code> en el módulo
+          XSS (Reflected) de DVWA (nivel Low). El popup de alert con el texto "XSS" confirma que el
+          navegador ejecutó el script reflejado por el servidor sin sanitizar el parámetro <code>name</code>
+          de la URL.</em>
+        </p>
       </div>
 
       <div className="card">
@@ -79,6 +85,9 @@ export default function XSS() {
 
       <div className="card">
         <div className="card-title">5. Control de mitigación (3.1.5)</div>
+        <p style={{ marginBottom: 12 }}>
+          Controles alineados al marco <strong>OWASP Top 10 (A03:2021 — Injection / XSS)</strong>:
+        </p>
         <table>
           <thead>
             <tr><th>Control</th><th>Descripción</th><th>Prioridad</th></tr>

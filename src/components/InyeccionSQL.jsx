@@ -16,18 +16,16 @@ export default function InyeccionSQL() {
         <p style={{ marginTop: 8 }}><strong>Payload utilizado:</strong></p>
         <div className="payload">' OR '1'='1</div>
 
-        {/* Reemplazar por imagen real después de hacer el ataque */}
-        <div className="evidencia-placeholder">
-          <span className="placeholder-icon">📸</span>
-          <span>Reemplazar con captura del ataque</span>
-          <span>docs_sotluc/img_sotluc/sqli_sotluc.png</span>
-        </div>
-        {/* Una vez tengas la imagen, reemplaza el placeholder por:
         <img
           src="/docs_sotluc/img_sotluc/sqli_sotluc.png"
-          alt="Evidencia SQLi"
+          alt="Evidencia del ataque de Inyección SQL en DVWA"
           className="evidencia-img"
-        /> */}
+        />
+        <p style={{ fontSize: 12, color: 'var(--texto-muted)', marginTop: -8, marginBottom: 16 }}>
+          <em>Figura 1. Resultado de la inyección SQL <code>' OR '1'='1</code> en el módulo SQL Injection
+          de DVWA (nivel Low), mostrando la exposición de los 5 registros completos de la tabla de
+          usuarios (admin, Gordon Brown, Hack Me, Pablo Picasso, Bob Smith).</em>
+        </p>
       </div>
 
       {/* 2. Explicación técnica */}
@@ -99,7 +97,9 @@ export default function InyeccionSQL() {
 
       <div className="card">
         <div className="card-title">5. Control de mitigación (3.1.5)</div>
-        <p style={{ marginBottom: 12 }}>Controles técnicos a implementar:</p>
+        <p style={{ marginBottom: 12 }}>
+          Controles técnicos a implementar, alineados al marco <strong>OWASP Top 10 (A03:2021 — Injection)</strong>:
+        </p>
         <table>
           <thead>
             <tr><th>Control</th><th>Descripción</th><th>Prioridad</th></tr>
@@ -112,7 +112,7 @@ export default function InyeccionSQL() {
             </tr>
             <tr>
               <td>WAF</td>
-              <td>Implementar Web Application Firewall con reglas anti-SQLi (OWASP ModSecurity)</td>
+              <td>Implementar Web Application Firewall con reglas anti-SQLi (OWASP ModSecurity CRS)</td>
               <td><span className="badge badge-alto">Alta</span></td>
             </tr>
             <tr>

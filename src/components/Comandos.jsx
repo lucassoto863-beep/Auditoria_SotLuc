@@ -15,20 +15,25 @@ export default function Comandos() {
         <p style={{ marginTop: 8 }}><strong>Payload utilizado:</strong></p>
         <div className="payload">127.0.0.1; cat /etc/passwd</div>
 
-        <div className="evidencia-placeholder">
-          <span className="placeholder-icon">📸</span>
-          <span>Reemplazar con captura del ataque</span>
-          <span>docs_sotluc/img_sotluc/comandos_sotluc.png</span>
-        </div>
+        <img
+          src="/docs_sotluc/img_sotluc/comandos_sotluc.png"
+          alt="Evidencia del ataque de Inyección de Comandos en DVWA"
+          className="evidencia-img"
+        />
+        <p style={{ fontSize: 12, color: 'var(--texto-muted)', marginTop: -8, marginBottom: 16 }}>
+          <em>Figura 3. Resultado de la inyección de comandos <code>127.0.0.1; cat /etc/passwd</code> en
+          el módulo Command Injection de DVWA (nivel Low), mostrando el contenido completo del archivo
+          <code>/etc/passwd</code> del servidor, incluyendo el usuario root (UID 0).</em>
+        </p>
       </div>
 
       <div className="card">
         <div className="card-title">2. ¿Por qué funciona?</div>
         <p>
-          La aplicación ejecuta un comando del sistema operativo usando directamente el input del
-          usuario como parte del argumento (ej. <code>ping $input</code>). El operador <code>;</code> en
-          sistemas Unix encadena comandos, permitiendo que el segundo comando se ejecute
-          independientemente del primero.
+          La aplicación pasa el input del usuario directamente a una función de ejecución de
+          comandos del sistema operativo (como <code>exec()</code> o <code>shell_exec()</code>). El
+          operador <code>;</code> en sistemas Unix encadena comandos, permitiendo que el segundo
+          comando se ejecute independientemente del primero.
         </p>
         <p style={{ marginTop: 12 }}>
           En AguasClaras, el servidor del portal corre sobre Linux. Un atacante podría ejecutar
@@ -83,6 +88,9 @@ export default function Comandos() {
 
       <div className="card">
         <div className="card-title">5. Control de mitigación (3.1.5)</div>
+        <p style={{ marginBottom: 12 }}>
+          Controles alineados al marco <strong>OWASP Top 10 (A03:2021 — Injection)</strong> y <strong>CIS Controls v8</strong>:
+        </p>
         <table>
           <thead>
             <tr><th>Control</th><th>Descripción</th><th>Prioridad</th></tr>
