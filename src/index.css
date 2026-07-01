@@ -466,3 +466,24 @@ body.light .theme-toggle {
 body.light .theme-toggle:hover {
   background: rgba(10,22,40,0.08);
 }
+
+body.light .section-title {
+  color: #0a1628;
+}
+
+body.light .section-eyebrow {
+  color: var(--agua-500);
+}
+
+body.light .section-desc {
+  color: var(--texto-secundario);
+}
+
+body.light .card-title {
+  color: var(--agua-500);
+}
+
+body.light p,
+body.light td {
+  color: var(--texto-primario);
+}
